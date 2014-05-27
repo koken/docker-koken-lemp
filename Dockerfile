@@ -8,6 +8,10 @@ RUN ln -sf /bin/true /sbin/initctl
 # Let the conatiner know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
+# FFMpeg PPA
+RUN echo "deb http://ppa.launchpad.net/jon-severinsson/ffmpeg/ubuntu trusty main" >> /etc/apt/sources.list
+RUN echo "deb-src http://ppa.launchpad.net/jon-severinsson/ffmpeg/ubuntu trusty main" >> /etc/apt/sources.list
+
 RUN apt-get update
 RUN apt-get -y upgrade
 
@@ -16,6 +20,9 @@ RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-a
 
 # Koken Requirements
 RUN apt-get -y install php5-curl php5-intl php5-imagick php5-mcrypt php5-memcache php5-ming
+
+# FFmpeg
+RUN apt-get -y --force-yes install ffmpeg
 
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
