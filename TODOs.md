@@ -4,3 +4,4 @@
 * memcached or varnish (or both)
 * mime
 * block .cache files
+* might not need apc?

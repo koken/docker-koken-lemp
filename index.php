@@ -141,7 +141,7 @@
 			$data['driver'] = 'mysqli';
 
 			$host_bits = explode(':', $host);
-			if (count($host_bits))
+			if (count($host_bits) > 1)
 			{
 				$host = $host_bits[0];
 				if (is_numeric($host_bits[1]))
@@ -282,7 +282,7 @@
 
 			$data = test_database($host, $user, $password, $name, $_POST['prefix']);
 		}
-		else if ($_POST['server_test'])
+		else if (isset($_POST['server_test']))
 		{
 			$current_dir = dirname(__FILE__);
 			$writable = is_writable($current_dir) && is_writable(__FILE__);
@@ -497,14 +497,14 @@ HT;
 				unlink('pclzip.lib.php');
 				unlink('core.zip');
 
-				$_POST['password'] = str_replace("'", "\\'", $_POST['password']);
-
 				if (isset($_POST['use_conf_file']))
 				{
 					$conf = file_get_contents('database.php');
 				}
 				else
 				{
+					$_POST['password'] = str_replace("'", "\\'", $_POST['password']);
+
 					$conf = <<<OUT
 <?php
 
@@ -581,7 +581,7 @@ OUT;
 				}
 			});
 
-			var payload = {}, database = { magick: '<?php echo $magick_path; ?>' }, hold = false;
+			var payload = {}, database = { magick: 'convert' }, hold = false;
 
 			$('a.toggle').bind('click', function() {
 				$(this).toggleClass('open');
@@ -611,6 +611,7 @@ OUT;
 
 			if (has_database_config) {
 				database.use_conf_file = true;
+				database.magick = 'convert';
 				var	steps = [ 'admin', 'key', 'opt', 'signup', 'dl', 'wait', 'final' ];
 			} else {
 				var	steps = [ 'test', 'admin', 'db', 'key', 'opt', 'signup', 'dl', 'wait', 'final' ];
