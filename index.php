@@ -611,7 +611,7 @@ OUT;
 
 			if (has_database_config) {
 				database.use_conf_file = true;
-				var	steps = [ 'test', 'admin', 'key', 'opt', 'signup', 'dl', 'wait', 'final' ];
+				var	steps = [ 'admin', 'key', 'opt', 'signup', 'dl', 'wait', 'final' ];
 			} else {
 				var	steps = [ 'test', 'admin', 'db', 'key', 'opt', 'signup', 'dl', 'wait', 'final' ];
 			}
