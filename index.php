@@ -471,7 +471,7 @@ HT;
 		}
 		else
 		{
-			if (download('https://s3.amazonaws.com/install.koken.me/releases/latest.zip', 'core.zip'))
+			if (file_exists('core.zip') || download('https://s3.amazonaws.com/install.koken.me/releases/latest.zip', 'core.zip'))
 			{
 				require('pclzip.lib.php');
 
@@ -481,10 +481,16 @@ HT;
 				$archive->extract(PCLZIP_CB_POST_EXTRACT, 'extract_callback');
 
 				$storage = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR;
-				chdir($storage);
-
 				$zip = 'elementary.zip';
-				download('https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip', $zip);
+
+				if (!file_exists($zip))
+				{
+					download('https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip', $zip);
+				}
+
+				rename($zip, $storage . $zip);
+
+				chdir($storage);
 
 				$theme_zip = new PclZip($zip);
 				$theme_zip->extract(PCLZIP_CB_POST_EXTRACT, 'extract_callback');

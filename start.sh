@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
+if [ -f /usr/share/nginx/www/index.html ]; then
   # If SSH is needed
   # SSH_USERPASS=`pwgen -c -n -1 8`
   # mkdir /home/user
@@ -7,6 +7,10 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   # chown user /home/user
   # echo user:$SSH_USERPASS | chpasswd
   # echo ssh user password: $SSH_USERPASS
+
+  # Download core.zip / elementary.zip to save time for the end user.
+  curl -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
+  curl -o /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 
   #mysql has to be started this way as it doesn't work to call from /etc/init.d
   /usr/bin/mysqld_safe &
@@ -29,6 +33,9 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   mysql -uroot -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE koken; GRANT ALL PRIVILEGES ON koken.* TO 'koken'@'localhost' IDENTIFIED BY '$KOKEN_PASSWORD'; FLUSH PRIVILEGES;"
   killall mysqld
+
+  # Remove placeholder page
+  rm /usr/share/nginx/www/index.html
 fi
 
 # start all the services
