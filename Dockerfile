@@ -50,9 +50,10 @@ ADD ./supervisord.conf /etc/supervisord.conf
 
 # Install Koken installer
 RUN rm -rf /usr/share/nginx/www/*
-ADD ./index.php /usr/share/nginx/www/index.php
+ADD ./index.php /usr/share/nginx/www/installer.php
 ADD ./database.php /database.php
 RUN chown -R www-data:www-data /usr/share/nginx/www
+RUN chmod -R 755 /usr/share/nginx/www
 
 # Initialization and Startup Script
 ADD ./start.sh /start.sh

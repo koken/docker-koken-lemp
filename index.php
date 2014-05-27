@@ -475,7 +475,7 @@ HT;
 			{
 				require('pclzip.lib.php');
 
-				unlink('index.php');
+				unlink(__FILE__);
 
 				$archive = new PclZip('core.zip');
 				$archive->extract(PCLZIP_CB_POST_EXTRACT, 'extract_callback');
@@ -663,7 +663,7 @@ OUT;
 
 				$('[data-group="' + groups[0] + '"]').addClass('loading');
 
-				$.post('index.php', {
+				$.post(location.href, {
 						server_test: true,
 						custom_magick_path: magick_path
 					}, function(data) {
@@ -795,7 +795,7 @@ OUT;
 
 				if (valid) {
 					if ($(this).data('step') === 3) {
-						$.post('index.php', {
+						$.post(location.href, {
 							database_check: true,
 							host: $('#database_hostname').val().trim(),
 							user: $('#database_username').val().trim(),
@@ -836,7 +836,7 @@ OUT;
 							payload.last_name = $('#last_name').val().trim();
 							payload.email = $('#email').val().trim();
 							payload.password = $('#password').val().trim();
-							$.post('index.php', database, function(data) {
+							$.post(location.href, database, function(data) {
 								if (data.success) {
 									$.post('api.php?/install/complete', payload, function(data) {
 										if (data.success) {
