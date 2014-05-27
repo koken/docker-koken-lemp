@@ -63,4 +63,9 @@ RUN chmod 755 /start.sh
 EXPOSE 3306
 EXPOSE 80
 
+# If SSH is needed
+# RUN apt-get -y install openssh-server
+# RUN mkdir -p /var/run/sshd
+# EXPOSE 22
+
 CMD ["/bin/bash", "/start.sh"]
