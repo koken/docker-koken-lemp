@@ -17,7 +17,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip
+RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql pwgen python-setuptools curl unzip
 
 # Koken Requirements
 RUN apt-get -y install php5-curl php5-imagick php5-mcrypt ffmpeg
