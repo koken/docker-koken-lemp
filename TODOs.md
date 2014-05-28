@@ -1,6 +1,6 @@
 # TODOs
 
-* cron for image cache cleanup
+* cron for image cache cleanup, backup
 * memcached or varnish (or both)
 * mime
 * block .cache files
