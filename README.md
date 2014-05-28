@@ -19,7 +19,7 @@ Once the droplet is running, login as the root user and install the image. These
 
 ~~~bash
 ssh root@1.1.1.1
-docker run -p 80:80 -d bradleyboy/docker-koken-nginx
+docker run -p 80:8888 -d bradleyboy/docker-koken-nginx
 ~~~
 
 Once that completes, you can load Koken in your browser to complete the installation (again, substitute your IP address):

@@ -1,9 +1,9 @@
 # TODOs
 
-* cron for image cache cleanup, backup
-* memcached or varnish (or both)
-* mime
+* cron for image cache cleanup (now in cache-clear, needs testing)
+* cron for backup
+* memcached or varnish (or both? SSDs may make this a lower priority)
+* mime-types
 * block .cache files
-* might not need apc?
 
 Interesting idea for decoupling storage from the actual container: http://www.tech-d.net/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/

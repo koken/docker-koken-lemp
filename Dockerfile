@@ -53,6 +53,9 @@ ADD ./index.php /installer.php
 ADD ./pclzip.lib.php /pclzip.lib.php
 ADD ./database.php /database.php
 
+# CRON
+ADD ./cache-clean.cron /etc/cron.d/cache-clean
+
 # Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
