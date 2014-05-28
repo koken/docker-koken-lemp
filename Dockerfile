@@ -47,14 +47,11 @@ RUN /usr/bin/easy_install supervisor
 RUN /usr/bin/easy_install supervisor-stdout
 ADD ./supervisord.conf /etc/supervisord.conf
 
-# Install Koken installer
-RUN rm -rf /usr/share/nginx/www/*
-ADD ./index.html /usr/share/nginx/www/index.html
-ADD ./index.php /usr/share/nginx/www/installer.php
-ADD ./pclzip.lib.php /usr/share/nginx/www/pclzip.lib.php
+# Koken installer helpers
+ADD ./index.html /index.html
+ADD ./index.php /installer.php
+ADD ./pclzip.lib.php /pclzip.lib.php
 ADD ./database.php /database.php
-RUN chown -R www-data:www-data /usr/share/nginx/www
-RUN chmod -R 755 /usr/share/nginx/www
 
 # Initialization and Startup Script
 ADD ./start.sh /start.sh

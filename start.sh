@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -f /usr/share/nginx/www/index.html ]; then
+if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   # If SSH is needed
   # SSH_USERPASS=`pwgen -c -n -1 8`
   # mkdir /home/user
@@ -8,9 +8,21 @@ if [ -f /usr/share/nginx/www/index.html ]; then
   # echo user:$SSH_USERPASS | chpasswd
   # echo ssh user password: $SSH_USERPASS
 
+  # Setup webroot
+  rm -rf /usr/share/nginx/www
+  mkdir -p /usr/share/nginx/www
+
   # Download core.zip / elementary.zip to save time for the end user.
   curl -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
   curl -o /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
+
+  # Move install helpers into place
+  mv /index.html /usr/share/nginx/www/index.html
+  mv /installer.php /usr/share/nginx/www/installer.php
+  mv /pclzip.lib.php /usr/share/nginx/www/pclzip.lib.php
+
+  chown -R www-data:www-data /usr/share/nginx/www
+  chmod -R 755 /usr/share/nginx/www
 
   #mysql has to be started this way as it doesn't work to call from /etc/init.d
   /usr/bin/mysqld_safe &
