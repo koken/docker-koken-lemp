@@ -48,7 +48,6 @@ RUN /usr/bin/easy_install supervisor-stdout
 ADD ./supervisord.conf /etc/supervisord.conf
 
 # Koken installer helpers
-ADD ./index.html /index.html
 ADD ./index.php /installer.php
 ADD ./pclzip.lib.php /pclzip.lib.php
 ADD ./database.php /database.php
