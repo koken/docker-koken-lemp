@@ -2,9 +2,27 @@
 
 *This is a work in progress. Please check back later*.
 
-This official Koken docker image installs the latest version of Koken and all necessary system requirements. It also includes an optimized system configuration for best Koken peformance.
+This official Koken docker image installs the latest version of Koken and all necessary system requirements.
 
-## Using at Digital Ocean
+## Features
+
+* Automatically sets up and configures the database for Koken and skips that step in the installation process.
+* Adds a cron job to do periodic cleanup of the image cache.
+* nginx/PHP configured for best Koken performance.
+* Can be used on any machine with Docker installed.
+
+## Usage
+
+1. Install [Docker](https://www.docker.io/gettingstarted/#h_installation). Some hosts like Digital Ocean already have Docker available.
+2. Start up a Koken container:
+
+~~~bash
+sudo docker run -p 80:8888 -d bradleyboy/docker-koken-nginx
+~~~
+
+This forwards port 80 on your host machine to the instance of Koken running on port 8888 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser.
+
+### Using at Digital Ocean
 
 Digital Ocean provides fast, low cost virtual servers that are well suited for Koken. To get started, create a Digital Ocean account, enter your billing information, then click **Create Droplet**.
 
