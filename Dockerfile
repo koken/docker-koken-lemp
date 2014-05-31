@@ -17,7 +17,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql pwgen python-setuptools curl unzip
+RUN apt-get -y install supervisor mysql-server mysql-client nginx php5-fpm php5-mysql pwgen curl unzip
 
 # Koken Requirements
 RUN apt-get -y install php5-curl php5-imagick php5-mcrypt ffmpeg
@@ -43,9 +43,7 @@ RUN sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php5/f
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
 
 # Supervisor Config
-RUN /usr/bin/easy_install supervisor
-RUN /usr/bin/easy_install supervisor-stdout
-ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 
 # Koken installer helpers
 ADD ./index.php /installer.php
