@@ -1,5 +1,10 @@
 #!/bin/bash
-if [ -f /installer.php ]; then
+if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
+
+  if [ ! -f /var/lib/mysql/ibdata1 ]; then
+    mysql_install_db
+  fi
+
   # If SSH is needed
   # SSH_USERPASS=`pwgen -c -n -1 8`
   # mkdir /home/user
@@ -33,8 +38,7 @@ if [ -f /installer.php ]; then
 
   echo "=> Setting up Koken installer"
   # Setup webroot
-  rm -rf /usr/share/nginx/www
-  mkdir -p /usr/share/nginx/www
+  rm -rf /usr/share/nginx/www/*
 
   # Download core.zip / elementary.zip to save time for the end user.
   curl --silent -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
