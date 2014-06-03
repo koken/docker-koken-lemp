@@ -39,21 +39,21 @@ RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.co
 RUN sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php5/fpm/pool.d/www.conf
 
 # nginx site conf
-ADD ./nginx-site.conf /etc/nginx/sites-available/default
+ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
 
 # Supervisor Config
-ADD ./supervisord.conf /etc/supervisor/supervisord.conf
+ADD ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 
 # Koken installer helpers
-ADD ./index.php /installer.php
-ADD ./pclzip.lib.php /pclzip.lib.php
-ADD ./database.php /database.php
+ADD ./php/index.php /installer.php
+ADD ./php/pclzip.lib.php /pclzip.lib.php
+ADD ./php/database.php /database.php
 
 # CRON
-ADD ./koken.cron /etc/cron.d/koken
+ADD ./shell/koken.sh /etc/cron.d/koken
 
 # Initialization and Startup Script
-ADD ./start.sh /start.sh
+ADD ./shell/start.sh /start.sh
 RUN chmod 755 /start.sh
 
 # private expose
