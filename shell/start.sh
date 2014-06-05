@@ -39,6 +39,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   echo "=> Setting up Koken installer"
   # Setup webroot
   rm -rf /usr/share/nginx/www/*
+  mkdir -p /usr/share/nginx/www
 
   # Download core.zip / elementary.zip to save time for the end user.
   curl --silent -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
