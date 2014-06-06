@@ -57,7 +57,7 @@ ADD ./shell/start.sh /start.sh
 RUN chmod 755 /start.sh
 
 # private expose
-EXPOSE 8888
+EXPOSE 8080
 
 # If SSH is needed
 # RUN apt-get -y install openssh-server

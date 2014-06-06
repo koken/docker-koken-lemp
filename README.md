@@ -17,10 +17,10 @@ This official Koken docker image installs the latest version of Koken and all ne
 2. Start up a Koken container:
 
 ~~~bash
-sudo docker run -p 80:8888 -d bradleyboy/docker-koken-nginx
+sudo docker run -p 80:8080 -d bradleyboy/docker-koken-nginx
 ~~~
 
-This forwards port 80 on your host machine to the instance of Koken running on port 8888 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser.
+This forwards port 80 on your host machine to the instance of Koken running on port 8080 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser.
 
 ### Using at Digital Ocean
 
@@ -37,7 +37,7 @@ Once the droplet is running, login as the root user and install the image. These
 
 ~~~bash
 ssh root@1.1.1.1
-docker run -p 80:8888 -d bradleyboy/docker-koken-nginx
+docker run -p 80:8080 -d bradleyboy/docker-koken-nginx
 ~~~
 
 Once that completes, you can load Koken in your browser to complete the installation (again, substitute your IP address):
