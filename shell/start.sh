@@ -55,5 +55,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   chmod -R 755 /usr/share/nginx/www
 fi
 
+sed -i -e"s/worker_processes\s*4/worker_processes $(cat /proc/cpuinfo | grep processor | wc -l)/" /etc/nginx/nginx.conf
+
 echo "=> Starting supervisord"
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
