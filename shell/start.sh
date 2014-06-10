@@ -5,14 +5,6 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
     mysql_install_db
   fi
 
-  # If SSH is needed
-  # SSH_USERPASS=`pwgen -c -n -1 8`
-  # mkdir /home/user
-  # useradd -G sudo -d /home/user user
-  # chown user /home/user
-  # echo user:$SSH_USERPASS | chpasswd
-  # echo ssh user password: $SSH_USERPASS
-
   # Start MySQL and wait for it to become available
   /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
@@ -57,6 +49,3 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
 fi
 
 sed -i -e"s/worker_processes\s*4/worker_processes $(cat /proc/cpuinfo | grep processor | wc -l)/" /etc/nginx/nginx.conf
-
-echo "=> Starting supervisord"
-/usr/bin/supervisord -c /etc/supervisor/supervisord.conf

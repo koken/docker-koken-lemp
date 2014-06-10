@@ -1,12 +1,10 @@
-FROM ubuntu:14.04
+FROM phusion/baseimage:0.9.10
 MAINTAINER Brad Daily <brad@koken.me>
 
-# Keep upstart from complaining
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -sf /bin/true /sbin/initctl
+ENV HOME /root
 
-# Let the conatiner know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
 
 # FFMpeg PPA
 RUN echo "deb http://ppa.launchpad.net/jon-severinsson/ffmpeg/ubuntu trusty main" >> /etc/apt/sources.list
@@ -17,7 +15,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install supervisor mysql-server mysql-client nginx php5-fpm php5-mysql pwgen curl unzip
+RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql pwgen curl unzip
 
 # Koken Requirements
 RUN apt-get -y install php5-curl graphicsmagick php5-mcrypt ffmpeg
@@ -40,8 +38,20 @@ RUN sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php5/f
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
 
-# Supervisor Config
-ADD ./conf/supervisord.conf /etc/supervisor/supervisord.conf
+# nginx runit
+RUN mkdir -p /etc/service/nginx
+ADD ./services/nginx /etc/service/nginx/run
+RUN chmod +x /etc/service/nginx/run
+
+# mysql runit
+RUN mkdir -p /etc/service/mysql
+ADD ./services/mysql /etc/service/mysql/run
+RUN chmod +x /etc/service/mysql/run
+
+# php-fpm runit
+RUN mkdir -p /etc/service/php-fpm
+ADD ./services/php-fpm /etc/service/php-fpm/run
+RUN chmod +x /etc/service/php-fpm/run
 
 # Koken installer helpers
 ADD ./php/index.php /installer.php
@@ -50,18 +60,16 @@ ADD ./php/database.php /database.php
 ADD ./php/user_setup.php /user_setup.php
 
 # CRON
-ADD ./shell/koken.sh /etc/cron.d/koken
+ADD ./shell/koken.sh /etc/cron.daily/koken
+RUN chmod +x /etc/cron.daily/koken
 
 # Initialization and Startup Script
-ADD ./shell/start.sh /start.sh
-RUN chmod 755 /start.sh
+RUN mkdir -p /etc/my_init.d
+ADD ./shell/start.sh /etc/my_init.d/001_koken.sh
+RUN chmod +x /etc/my_init.d/001_koken.sh
 
 # private expose
 EXPOSE 8080
 
-# If SSH is needed
-# RUN apt-get -y install openssh-server
-# RUN mkdir -p /var/run/sshd
-# EXPOSE 22
-
-CMD ["/bin/bash", "/start.sh"]
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
