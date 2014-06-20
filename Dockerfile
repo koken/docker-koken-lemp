@@ -20,7 +20,7 @@ RUN apt-get -y upgrade
 RUN apt-get -y install supervisor mysql-server mysql-client nginx php5-fpm php5-mysql pwgen curl unzip
 
 # Koken Requirements
-RUN apt-get -y install php5-curl php5-imagick php5-mcrypt ffmpeg
+RUN apt-get -y install php5-curl graphicsmagick php5-mcrypt ffmpeg
 
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
@@ -47,6 +47,7 @@ ADD ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./php/index.php /installer.php
 ADD ./php/pclzip.lib.php /pclzip.lib.php
 ADD ./php/database.php /database.php
+ADD ./php/user_setup.php /user_setup.php
 
 # CRON
 ADD ./shell/koken.sh /etc/cron.d/koken

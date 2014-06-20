@@ -47,6 +47,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
 
   # Move install helpers into place
   mv /installer.php /usr/share/nginx/www/installer.php
+  mv /user_setup.php /usr/share/nginx/www/user_setup.php
   mv /pclzip.lib.php /usr/share/nginx/www/pclzip.lib.php
 
   # Configure Koken database connection

@@ -543,6 +543,11 @@ OUT;
 					// TODO: Fail
 				}
 
+				if (file_exists('user_setup.php'))
+				{
+					rename('user_setup.php', 'storage/configuration/user_setup.php');
+				}
+
 			}
 			else
 			{
@@ -587,7 +592,7 @@ OUT;
 				}
 			});
 
-			var payload = {}, database = { magick: 'convert' }, hold = false;
+			var payload = {}, database = { magick: 'gm convert' }, hold = false;
 
 			$('a.toggle').bind('click', function() {
 				$(this).toggleClass('open');
