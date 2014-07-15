@@ -57,7 +57,6 @@ RUN chmod +x /etc/service/php-fpm/run
 ADD ./php/index.php /installer.php
 ADD ./php/pclzip.lib.php /pclzip.lib.php
 ADD ./php/database.php /database.php
-ADD ./php/user_setup.php /user_setup.php
 
 # CRON
 ADD ./shell/koken.sh /etc/cron.daily/koken
