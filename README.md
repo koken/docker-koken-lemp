@@ -1,4 +1,4 @@
-# docker-koken-nginx
+# Docker + Koken + nginx = ♥
 
 This official Koken docker image installs the latest version of Koken and all necessary system requirements.
 
