@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --rm -t bradleyboy/docker-koken-nginx .
+docker build --rm -t koken/koken-lemp .
