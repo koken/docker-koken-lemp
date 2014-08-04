@@ -1,6 +1,6 @@
 # Docker + Koken + nginx = ♥
 
-This official Koken docker image installs the latest version of Koken and all necessary system requirements.
+This official Koken Docker image installs the latest version of [Koken](http://koken.me) and all necessary system requirements.
 
 ## Features
 
@@ -22,7 +22,7 @@ This forwards port 80 on your host machine to the instance of Koken running on p
 
 ### Using at Digital Ocean
 
-Digital Ocean provides fast, low cost virtual servers that are well suited for Koken. To get started, create a Digital Ocean account, enter your billing information, then click **Create Droplet**.
+[Digital Ocean](https://www.digitalocean.com/?refcode=b57390666b79) provides fast, low cost virtual servers that are well suited for Koken. To get started, create a Digital Ocean account, enter your billing information, then click **Create Droplet**.
 
 1. Select the 512 / 1 CPU box size.
 2. Select the Region closest to you.
