@@ -44,4 +44,4 @@ Once that completes, you can load Koken in your browser to complete the installa
 
 http://1.1.1.1
 
-Your files reside in /data/koken/www on the host machine, while the MySQL data lives in /data/koken/mysql.
+Your files reside in `/data/koken/www` on the host machine, while the MySQL data lives in `/data/koken/mysql`.
