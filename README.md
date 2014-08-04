@@ -15,7 +15,7 @@ This official Koken Docker image installs the latest version of [Koken](http://k
 2. Start up a Koken container:
 
 ~~~bash
-sudo docker run -p 80:8080 -dti koken/koken-lemp
+sudo docker run -p 80:8080 -dti koken/koken-lemp /sbin/my_init
 ~~~
 
 This forwards port 80 on your host machine to the instance of Koken running on port 8080 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser.
