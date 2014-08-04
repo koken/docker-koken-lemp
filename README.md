@@ -9,16 +9,16 @@ This official Koken Docker image installs the latest version of [Koken](http://k
 * nginx/PHP configured for best Koken performance.
 * Can be used on any machine with Docker installed.
 
-## Usage
+## General usage
 
-1. Install [Docker](https://www.docker.io/gettingstarted/#h_installation). Some hosts like Digital Ocean already have Docker available.
-2. Start up a Koken container:
+1. Install [Docker](https://www.docker.io/gettingstarted/#h_installation).
+2. Use our [simple wrapper script](https://gist.github.com/bradleyboy/48b67b5e9ebf91031a19) to start Koken.
 
 ~~~bash
-sudo docker run -p 80:8080 -dti koken/koken-lemp /sbin/my_init
+wget -qO - https://gist.githubusercontent.com/bradleyboy/48b67b5e9ebf91031a19/raw/create_koken.sh | sudo bash
 ~~~
 
-This forwards port 80 on your host machine to the instance of Koken running on port 8080 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser.
+This forwards port 80 on your host machine to the instance of Koken running on port 8080 inside the container. You can now access your new Koken install by loading the IP address or domain name for your host in a browser. Your files reside in `/data/koken/www` on the host machine, while the MySQL data lives in `/data/koken/mysql`.
 
 ### Using at Digital Ocean
 
