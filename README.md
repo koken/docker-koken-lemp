@@ -33,13 +33,15 @@ Digital Ocean provides fast, low cost virtual servers that are well suited for K
 5. Leave **Settings** to their defaults.
 6. Click **Create Droplet**.
 
-Once the droplet is running, login as the root user and install the image. These instructions assume the IP is 1.1.1.1. Substitute your actual IP, which is listed on the Digital Ocean droplet page.
+Once the droplet is running, login as the root user and run our [simple wrapper script](https://gist.github.com/bradleyboy/48b67b5e9ebf91031a19) to start Koken.
 
 ~~~bash
 ssh root@1.1.1.1
-docker run -p 80:8080 -dti bradleyboy/docker-koken-nginx /sbin/my_init
+wget -qO - https://gist.githubusercontent.com/bradleyboy/48b67b5e9ebf91031a19/raw/create_koken.sh | bash
 ~~~
 
 Once that completes, you can load Koken in your browser to complete the installation (again, substitute your IP address):
 
 http://1.1.1.1
+
+Your files reside in /data/koken/www on the host machine, while the MySQL data lives in /data/koken/mysql.
