@@ -1,5 +1,11 @@
 #!/bin/bash
-if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
+
+#########################################################
+# The following should be run only if Koken hasn't been #
+# installed yet                                         #
+#########################################################
+
+if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /usr/share/nginx/www/database.php ]; then
 
   if [ ! -f /var/lib/mysql/ibdata1 ]; then
     mysql_install_db
