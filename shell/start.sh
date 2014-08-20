@@ -48,4 +48,15 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ]; then
   chmod -R 755 /usr/share/nginx/www
 fi
 
+################################################################
+# The following should be run anytime the container is booted, #
+# incase host is resized                                       #
+################################################################
+
+# Set PHP pool to take up to 1/3 of total system memory.
+# 30MB per process is conservative estimate, is usually less than that
+PHP_MAX=$(expr $(grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//') / 1024 / 3 / 30)
+sed -i -e"s/pm.max_children = 5/pm.max_children = $PHP_MAX/" /etc/php5/fpm/pool.d/www.conf
+
+# Set nginx worker processes to equal number of CPU cores
 sed -i -e"s/worker_processes\s*4/worker_processes $(cat /proc/cpuinfo | grep processor | wc -l)/" /etc/nginx/nginx.conf
