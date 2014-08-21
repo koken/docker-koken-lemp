@@ -49,11 +49,11 @@ ADD ./php/pclzip.lib.php /pclzip.lib.php
 ADD ./php/database.php /database.php
 ADD ./php/user_setup.php /user_setup.php
 
-# Startup script
-ADD ./shell/start.sh /etc/my_init.d/001_koken.sh
-
 # Cron
 ADD ./shell/koken.sh /etc/cron.daily/koken
+
+# Startup script
+ADD ./shell/start.sh /etc/my_init.d/001_koken.sh
 
 # Execute permissions where needed
 RUN \
