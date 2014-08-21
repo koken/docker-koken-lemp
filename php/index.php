@@ -526,11 +526,9 @@ HT;
 OUT;
 				}
 
-				if ($_POST['magick'] !== 'convert')
+				if (file_exists('user_setup.php'))
 				{
-					$user_setup = file_get_contents('storage/configuration/user_setup.php');
-					$user_setup = str_replace('convert', $_POST['magick'], $user_setup);
-					file_put_contents('storage/configuration/user_setup.php', $user_setup);
+					rename('user_setup.php', 'storage/configuration/user_setup.php');
 				}
 
 				if (file_put_contents('storage/configuration/database.php', $conf))
