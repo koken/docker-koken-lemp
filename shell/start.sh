@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Make sure we have a net connection
+PING=0
+while [[ $PING -eq 0 ]]; do
+  echo "=> Waiting for net connection..."
+  sleep 1
+  PING=$(ping -c 1 -W 1 8.8.8.8 | grep ttl | wc -l)
+done
+
 #########################################################
 # The following should be run only if Koken hasn't been #
 # installed yet                                         #
@@ -15,7 +23,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
   RET=1
-  while [[ RET -ne 0 ]]; do
+  while [[ $RET -ne 0 ]]; do
       echo "=> Waiting for confirmation of MySQL service startup"
       sleep 2
       mysql -uroot -e "status" > /dev/null 2>&1
@@ -48,6 +56,10 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   sed -e "s/___PWD___/$KOKEN_PASSWORD/" /database.php > /usr/share/nginx/www/database.php
   chown www-data:www-data /usr/share/nginx/www/
   chmod -R 755 /usr/share/nginx/www
+
+  # Download core.zip / elementary.zip to save time for the end user.
+  curl --silent -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
+  curl --silent -o /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 fi
 
 ################################################################

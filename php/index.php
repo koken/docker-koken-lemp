@@ -273,30 +273,6 @@
 
 	if ($_POST)
 	{
-		if (isset($_POST['download']))
-		{
-			download('https://s3.amazonaws.com/install.koken.me/releases/latest.zip', 'core.dl.zip');
-			if (file_exists('core.zip'))
-			{
-				unlink('core.dl.zip');
-			}
-			else
-			{
-				rename('core.dl.zip', 'core.zip');
-			}
-
-			download('https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip', 'elementary.dl.zip');
-			if (file_exists('elementary.zip'))
-			{
-				unlink('elementary.dl.zip');
-			}
-			else
-			{
-				rename('elementary.dl.zip', 'elementary.zip');
-			}
-
-			exit;
-		}
 		if (isset($_POST['database_check']))
 		{
 			$host = $_POST['host'];
@@ -601,8 +577,6 @@ OUT;
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script>
 		$(function() {
-
-			$.post(location.href, { download: true });
 
 			$(window).on('keydown', function(e) {
 				if (e.keyCode === 13 && $('button:visible').length === 1) {
