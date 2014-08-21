@@ -17,7 +17,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   RET=1
   while [[ RET -ne 0 ]]; do
       echo "=> Waiting for confirmation of MySQL service startup"
-      sleep 5
+      sleep 2
       mysql -uroot -e "status" > /dev/null 2>&1
       RET=$?
   done
@@ -38,10 +38,6 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   # Setup webroot
   rm -rf /usr/share/nginx/www/*
   mkdir -p /usr/share/nginx/www
-
-  # Download core.zip / elementary.zip to save time for the end user.
-  curl --silent -o /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
-  curl --silent -o /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 
   # Move install helpers into place
   mv /installer.php /usr/share/nginx/www/installer.php
