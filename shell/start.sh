@@ -58,8 +58,8 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   chmod -R 755 /usr/share/nginx/www
 
   # Download core.zip / elementary.zip to save time for the end user.
-  wget -O --dns-timeout=5 /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
-  wget -O --dns-timeout=5 /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
+  wget --dns-timeout=5 -O /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
+  wget --dns-timeout=5 -O /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 fi
 
 ################################################################
