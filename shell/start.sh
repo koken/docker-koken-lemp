@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Make sure we have a net connection
-PING=0
-while [[ $PING -eq 0 ]]; do
-  echo "=> Waiting for net connection..."
-  sleep 1
-  PING=$(ping -c 1 -W 1 8.8.8.8 | grep ttl | wc -l)
-done
-
 #########################################################
 # The following should be run only if Koken hasn't been #
 # installed yet                                         #
@@ -42,7 +34,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
 
   mysqladmin -uroot -p$MYSQL_PASSWORD shutdown
 
-  echo "=> Setting up Koken installer"
+  echo "=> Setting up Koken"
   # Setup webroot
   rm -rf /usr/share/nginx/www/*
   mkdir -p /usr/share/nginx/www
@@ -50,16 +42,11 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   # Move install helpers into place
   mv /installer.php /usr/share/nginx/www/installer.php
   mv /user_setup.php /usr/share/nginx/www/user_setup.php
-  mv /pclzip.lib.php /usr/share/nginx/www/pclzip.lib.php
 
   # Configure Koken database connection
   sed -e "s/___PWD___/$KOKEN_PASSWORD/" /database.php > /usr/share/nginx/www/database.php
   chown www-data:www-data /usr/share/nginx/www/
   chmod -R 755 /usr/share/nginx/www
-
-  # Download core.zip / elementary.zip to save time for the end user.
-  wget --dns-timeout=5 -O /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
-  wget --dns-timeout=5 -O /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 fi
 
 ################################################################

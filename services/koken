@@ -1,0 +1,25 @@
+#!/bin/bash
+
+sv start nginx || exit 1
+
+if [ -f /usr/share/nginx/www/installer.php ]; then
+  wget --quiet --dns-timeout=10 -O /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
+  wget --quiet --dns-timeout=10 -O /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
+
+  cd /usr/share/nginx/www;
+
+  unzip core.zip;
+  unzip elementary.zip;
+
+  rm *.zip;
+
+  mv be1cb2d9-ed05-2d81-85b4-23282832eb84 storage/themes/elementary;
+  mv database.php storage/configuration;
+  mv user_setup.php storage/configuration;
+
+  touch /usr/share/nginx/www/ready.txt;
+
+  chown -R www-data:www-data /usr/share/nginx/www;
+fi;
+
+while true; do sleep 60; done

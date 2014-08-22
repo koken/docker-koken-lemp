@@ -42,10 +42,10 @@ RUN \
 ADD ./services/nginx /etc/service/nginx/run
 ADD ./services/mysql /etc/service/mysql/run
 ADD ./services/php-fpm /etc/service/php-fpm/run
+ADD ./services/koken /etc/service/koken/run
 
 # Installation helpers
 ADD ./php/index.php /installer.php
-ADD ./php/pclzip.lib.php /pclzip.lib.php
 ADD ./php/database.php /database.php
 ADD ./php/user_setup.php /user_setup.php
 
@@ -60,6 +60,7 @@ RUN \
 	chmod +x /etc/service/nginx/run && \
 	chmod +x /etc/service/mysql/run && \
 	chmod +x /etc/service/php-fpm/run && \
+	chmod +x /etc/service/koken/run && \
 	chmod +x /etc/cron.daily/koken && \
 	chmod +x /etc/my_init.d/001_koken.sh
 
