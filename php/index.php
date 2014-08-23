@@ -212,7 +212,7 @@
 
 	<div id="container">
 
-		<img id="logo" src="//s3.amazonaws.com/install.koken.me/img/koken-logo.png" width="71" height="71" />
+		<img id="logo" src="//s3.amazonaws.com/install.koken.me/img/koken_logo.svg" width="71" height="71" />
 
 		<div id="content">
 
