@@ -3,18 +3,19 @@
 	error_reporting(0);
 	set_time_limit(0);
 
+	$ready = file_exists('ready.txt');
+
 	if (isset($_POST['del']))
 	{
 		unlink(__FILE__);
 		unlink('ready.txt');
 		exit;
 	}
-
-	if (isset($_POST['ready']))
+	else if (isset($_POST['ready']))
 	{
 		header('Content-type: application/json');
 		die(json_encode(array(
-			'ready' => file_exists('ready.txt')
+			'ready' => $ready
 		)));
 	}
 
@@ -69,7 +70,8 @@
 			$('#tz').val(tz);
 
 			var current = false;
-			var	steps = [ 'downloading', 'admin', 'key', 'opt', 'signup', 'wait', 'final' ];
+			var ready = <?php echo $ready ? 'true' : 'false'; ?>;
+			var	steps = [ 'admin', 'key', 'opt', 'signup', 'wait', 'final' ];
 
 			function next() {
 
@@ -134,9 +136,12 @@
 				});
 			}
 
-			next();
+			if (!ready) {
+				steps.unshift('downloading');
+				setTimeout(isReady, 2000);
+			}
 
-			setTimeout(isReady, 2000);
+			next();
 
 			$('button').click(function() {
 				if (hold) return;
