@@ -34,13 +34,6 @@ RUN \
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
 
-# Create needed directories
-RUN \
-	mkdir -p /etc/service/nginx && \
-	mkdir -p /etc/service/mysql && \
-	mkdir -p /etc/service/php-fpm && \
-	mkdir -p /etc/my_init.d
-
 # Add runit files for each service
 ADD ./services/nginx /etc/service/nginx/run
 ADD ./services/mysql /etc/service/mysql/run
