@@ -54,9 +54,9 @@ fi
 # incase host is resized                                       #
 ################################################################
 
-# Set PHP pools to take up to 1/3 of total system memory each.
+# Set PHP pools to take up to 1/2 of total system memory total, split between the two pools.
 # 30MB per process is conservative estimate, is usually less than that
-PHP_MAX=$(expr $(grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//') / 1024 / 3 / 30 / 2)
+PHP_MAX=$(expr $(grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//') / 1024 / 2 / 30 / 2)
 sed -i -e"s/pm.max_children = 5/pm.max_children = $PHP_MAX/" /etc/php5/fpm/pool.d/www.conf
 sed -i -e"s/pm.max_children = 5/pm.max_children = $PHP_MAX/" /etc/php5/fpm/pool.d/images.conf
 
