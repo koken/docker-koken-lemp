@@ -22,4 +22,5 @@ if [ -f /usr/share/nginx/www/installer.php ]; then
   chown -R www-data:www-data /usr/share/nginx/www;
 fi;
 
-while true; do sleep 60; done
+sv stop koken
+exit 0
