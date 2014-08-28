@@ -11,7 +11,7 @@ CMD ["/sbin/my_init"]
 RUN \
 	export LANG=C.UTF-8 && \
 	add-apt-repository ppa:jon-severinsson/ffmpeg && \
-	add-apt-repository ppa:ondrej/php5 && \
+	add-apt-repository ppa:ondrej/php5-5.6 && \
 	add-apt-repository -y ppa:nginx/stable && \
 	apt-get update && \
 	apt-get -y install nginx mysql-server mysql-client php5-fpm php5-mysql php5-curl php5-mcrypt graphicsmagick ffmpeg pwgen wget unzip
