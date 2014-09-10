@@ -233,12 +233,12 @@
 				<div class="col-half lcol">
 
 					<div class="row">
-						<label for="">First name</label>
+						<label for="first_name">First name</label>
 						<input id="first_name" type="text" />
 					</div>
 
 					<div class="row">
-						<label for="">Last name</label>
+						<label for="last_name">Last name</label>
 						<input id="last_name" type="text" />
 					</div>
 
@@ -247,12 +247,12 @@
 				<div class="col-half rcol">
 
 					<div class="row">
-						<label for="">Email</label>
+						<label for="email">Email</label>
 						<input id="email" type="email" placeholder="you@domain.com" />
 					</div>
 
 					<div class="row">
-						<label for="">Password</label>
+						<label for="password">Password</label>
 						<input id="password" type="password" />
 					</div>
 
@@ -323,6 +323,14 @@
 
 				</div>
 
+				<div class="row" style="margin-top:3em;">
+
+					<p class="mute small">
+						By installing this application you agree to our<br><a href="http://koken.me/eula.html" title="View Koken License Agreement in separate window" onclick="return !window.open(this.href);">License Agreement</a> and <a href="http://koken.me/privacy.html" title="View Privacy Policy in separate window" onclick="return !window.open(this.href);">Privacy Policy</a>.
+					</p>
+
+				</div>
+
 			</div> <!-- close #setup-signup -->
 
 			<div id="setup-downloading">
@@ -341,7 +349,7 @@
 				<header>
 
 					<h1>Installing...</h1>
-					<p>Koken is now being downloaded and installed. Please wait.</p>
+					<p>Koken is now being installed. Please wait...</p>
 
 				</header>
 
