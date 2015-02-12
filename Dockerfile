@@ -61,6 +61,9 @@ RUN \
 	chmod +x /etc/cron.daily/koken && \
 	chmod +x /etc/my_init.d/001_koken.sh
 
+# Data volumes
+VOLUME ["/usr/share/nginx/www", "/var/lib/mysql"]
+
 # Expose 8080 to the host
 EXPOSE 8080
 
