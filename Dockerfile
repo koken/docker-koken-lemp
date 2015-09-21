@@ -10,7 +10,7 @@ CMD ["/sbin/my_init"]
 # LANG=C.UTF-8 line is needed for ondrej/php5 repository
 RUN \
 	export LANG=C.UTF-8 && \
-	add-apt-repository ppa:jon-severinsson/ffmpeg && \
+	add-apt-repository ppa:mc3man/trusty-media && \
 	add-apt-repository ppa:ondrej/php5-5.6 && \
 	add-apt-repository -y ppa:nginx/stable && \
 	add-apt-repository -y ppa:rwky/graphicsmagick && \
