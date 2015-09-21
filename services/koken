@@ -5,7 +5,7 @@ rm -f /usr/share/nginx/www/ready.txt;
 sv start nginx || exit 1
 
 if [ -f /usr/share/nginx/www/installer.php ]; then
-  wget --quiet --cache=off --dns-timeout=10 -O /usr/share/nginx/www/core.zip https://s3.amazonaws.com/install.koken.me/releases/latest.zip
+  wget --quiet --cache=off --dns-timeout=10 -O /usr/share/nginx/www/core.zip https://s3.amazonaws.com/koken-installer/releases/latest.zip
   wget --quiet --cache=off --dns-timeout=10 -O /usr/share/nginx/www/elementary.zip https://koken-store.s3.amazonaws.com/plugins/be1cb2d9-ed05-2d81-85b4-23282832eb84.zip
 
   cd /usr/share/nginx/www;

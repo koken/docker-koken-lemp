@@ -27,7 +27,7 @@
 	<title>Koken - Setup</title>
 
 	<!-- css -->
-	<link rel="stylesheet" href="//s3.amazonaws.com/install.koken.me/css/screen.css">
+	<link rel="stylesheet" href="//s3.amazonaws.com/koken-installer/css/screen.css">
 
 	<!--[if IE]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -217,7 +217,7 @@
 
 	<div id="container">
 
-		<img id="logo" src="//s3.amazonaws.com/install.koken.me/img/koken_logo.svg" width="71" height="71" />
+		<img id="logo" src="//s3.amazonaws.com/koken-installer/img/koken_logo.svg" width="71" height="71" />
 
 		<div id="content">
 
