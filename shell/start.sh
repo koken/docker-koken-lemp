@@ -4,36 +4,31 @@
 # The following should be run only if Koken hasn't been #
 # installed yet                                         #
 #########################################################
-
 if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /usr/share/nginx/www/database.php ]; then
 
-  if [ ! -f /var/lib/mysql/ibdata1 ]; then
-    mysql_install_db
-  fi
-
-  # Start MySQL and wait for it to become available
-  /usr/bin/mysqld_safe > /dev/null 2>&1 &
-
-  RET=1
-  while [[ $RET -ne 0 ]]; do
-      echo "=> Waiting for confirmation of MySQL service startup"
-      sleep 2
-      mysql -uroot -e "status" > /dev/null 2>&1
-      RET=$?
-  done
+  mysql_install_db
+  mysqld_safe &
+  service php5-fpm start
+  
+  sleep 10
 
   # Generate Koken database and user credentials
   echo "=> Generating database and credentials"
   KOKEN_DB="koken"
   MYSQL_PASSWORD=`pwgen -c -n -1 12`
   KOKEN_PASSWORD=`pwgen -c -n -1 12`
+  DEBIAN_SYS_PASSWORD=`awk -F" = " '/password/{print $2;exit}' /etc/mysql/debian.cnf`
+
+  echo $DEBIAN_SYS_PASSWORD
 
   mysqladmin -u root password $MYSQL_PASSWORD
   mysql -uroot -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE koken; GRANT ALL PRIVILEGES ON koken.* TO 'koken'@'localhost' IDENTIFIED BY '$KOKEN_PASSWORD'; FLUSH PRIVILEGES;"
+  mysql -uroot -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'debian-sys-maint'@'localhost' IDENTIFIED BY '$DEBIAN_SYS_PASSWORD';"
 
-  mysqladmin -uroot -p$MYSQL_PASSWORD shutdown
-
+  service mysql stop
+  service mysql start
+  sleep 10
   echo "=> Setting up Koken"
   # Setup webroot
   rm -rf /usr/share/nginx/www/*
@@ -44,9 +39,15 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   mv /user_setup.php /usr/share/nginx/www/user_setup.php
 
   # Configure Koken database connection
+  echo "=> Setup Koken database connection"
   sed -e "s/___PWD___/$KOKEN_PASSWORD/" /database.php > /usr/share/nginx/www/database.php
   chown www-data:www-data /usr/share/nginx/www/
   chmod -R 755 /usr/share/nginx/www
+
+  # Run Koken download-script
+  sh /etc/init.d/001_koken_init.sh
+  echo "=> Koken download-script complete"
+
 fi
 
 ################################################################
@@ -62,3 +63,4 @@ sed -i -e"s/pm.max_children = 5/pm.max_children = $PHP_MAX/" /etc/php5/fpm/pool.
 
 # Set nginx worker processes to equal number of CPU cores
 sed -i -e"s/worker_processes\s*4/worker_processes $(cat /proc/cpuinfo | grep processor | wc -l)/" /etc/nginx/nginx.conf
+tail -f /var/log/nginx/access.log

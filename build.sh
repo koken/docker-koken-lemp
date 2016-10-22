@@ -1,2 +1,4 @@
 #!/bin/sh
-docker build --rm -t koken/koken-lemp .
+sudo rm -rf www/*
+sudo rm -rf mysql/*
+docker build --rm -t r0b2g1t/koken:latest .
