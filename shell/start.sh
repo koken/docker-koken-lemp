@@ -9,7 +9,7 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   mysql_install_db
   mysqld_safe &
   service php5-fpm start
-  
+
   sleep 10
 
   # Generate Koken database and user credentials
@@ -63,4 +63,9 @@ sed -i -e"s/pm.max_children = 5/pm.max_children = $PHP_MAX/" /etc/php5/fpm/pool.
 
 # Set nginx worker processes to equal number of CPU cores
 sed -i -e"s/worker_processes\s*4/worker_processes $(cat /proc/cpuinfo | grep processor | wc -l)/" /etc/nginx/nginx.conf
+
+service mysql restart
+service php5-fpm restart
+service nginx restart
+
 tail -f /var/log/nginx/access.log
