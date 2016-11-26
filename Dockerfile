@@ -11,7 +11,7 @@ CMD ["/sbin/my_init"]
 RUN \
 	export LANG=C.UTF-8 && \
 	add-apt-repository ppa:mc3man/trusty-media && \
-	add-apt-repository ppa:ondrej/php5-5.6 && \
+	add-apt-repository ppa:ondrej/php && \
 	add-apt-repository -y ppa:nginx/stable && \
 	add-apt-repository -y ppa:rwky/graphicsmagick && \
 	apt-get update && \
