@@ -30,7 +30,8 @@ RUN \
 	echo "env[KOKEN_HOST] = 'koken-docker-lemp'" >> /etc/php5/fpm/pool.d/www.conf && \
 	cp /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/images.conf && \
 	sed -i -e "s/\[www\]/[images]/" /etc/php5/fpm/pool.d/images.conf && \
-	sed -i -e "s#listen\s*=\s*/var/run/php5-fpm\.sock#listen = /var/run/php5-fpm-images.sock#" /etc/php5/fpm/pool.d/images.conf
+	sed -i -e "s#listen\s*=\s*/var/run/php5-fpm\.sock#listen = /var/run/php5-fpm-images.sock#" /etc/php5/fpm/pool.d/images.conf && \
+	php5enmod mcrypt
 
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
