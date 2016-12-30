@@ -15,23 +15,23 @@ RUN \
 	add-apt-repository -y ppa:nginx/stable && \
 	add-apt-repository -y ppa:rwky/graphicsmagick && \
 	apt-get update && \
-	apt-get -y install nginx mysql-server mysql-client php5-fpm php5-mysql php5-curl php5-mcrypt graphicsmagick ffmpeg pwgen wget unzip
+	apt-get -y install nginx mysql-server mysql-client php7.1-fpm php7.1-mysql php7.1-curl php7.1-mcrypt graphicsmagick ffmpeg pwgen wget unzip
 
 # Configuration
 RUN \
 	sed -i -e"s/events\s{/events {\n\tuse epoll;/" /etc/nginx/nginx.conf && \
 	sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2;\n\tclient_max_body_size 100m;\n\tport_in_redirect off/" /etc/nginx/nginx.conf && \
 	echo "daemon off;" >> /etc/nginx/nginx.conf && \
-	sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini && \
-	sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
-	sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 101M/g" /etc/php5/fpm/php.ini && \
-	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
-	sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php5/fpm/pool.d/www.conf && \
-	echo "env[KOKEN_HOST] = 'koken-docker-lemp'" >> /etc/php5/fpm/pool.d/www.conf && \
-	cp /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/images.conf && \
-	sed -i -e "s/\[www\]/[images]/" /etc/php5/fpm/pool.d/images.conf && \
-	sed -i -e "s#listen\s*=\s*/var/run/php5-fpm\.sock#listen = /var/run/php5-fpm-images.sock#" /etc/php5/fpm/pool.d/images.conf && \
-	php5enmod mcrypt
+	sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.1/fpm/php.ini && \
+	sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/fpm/php.ini && \
+	sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 101M/g" /etc/php/7.1/fpm/php.ini && \
+	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf && \
+	sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php/7.1/fpm/pool.d/www.conf && \
+	echo "env[KOKEN_HOST] = 'koken-docker-lemp'" >> /etc/php/7.1/fpm/pool.d/www.conf && \
+	cp /etc/php/7.1/fpm/pool.d/www.conf /etc/php/7.1/fpm/pool.d/images.conf && \
+	sed -i -e "s/\[www\]/[images]/" /etc/php/7.1/fpm/pool.d/images.conf && \
+	sed -i -e "s#listen\s*=\s*/run/php/php7\.1-fpm\.sock#listen = /run/php/php7.1-fpm-images.sock#" /etc/php/7.1/fpm/pool.d/images.conf && \
+	mkdir /run/php
 
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
