@@ -39,9 +39,6 @@ RUN \
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
 
-# nginx site conf
-ADD ./conf/mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
-
 # Add runit files for each service
 ADD ./services/nginx /etc/service/nginx/run
 ADD ./services/mysql /etc/service/mysql/run
