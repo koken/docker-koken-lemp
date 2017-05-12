@@ -16,7 +16,7 @@ RUN \
 	add-apt-repository -y ppa:nginx/stable && \
 	#add-apt-repository -y ppa:rwky/graphicsmagick && \
 	apt-get update && \
-	apt-get -y install nginx mysql-server mysql-client php7.1-fpm php7.1-mysql php7.1-curl php7.1-intl php7.1-mcrypt graphicsmagick ffmpeg pwgen wget unzip
+	apt-get -y install nginx mysql-server mysql-client php7.1-fpm php7.1-mysql php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick ffmpeg pwgen wget unzip
 
 # Configuration
 RUN \
