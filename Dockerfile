@@ -54,6 +54,10 @@ ADD ./php/user_setup.php /user_setup.php
 # Cron
 ADD ./shell/koken.sh /etc/cron.daily/koken
 
+# SSL
+ADD ./ssl/koken.crt /koken.crt
+ADD ./ssl/koken.key /koken.key
+
 # Startup script
 ADD ./shell/start.sh /etc/my_init.d/001_koken.sh
 
@@ -67,10 +71,11 @@ RUN \
 	chmod +x /etc/my_init.d/001_koken.sh
 
 # Data volumes
-VOLUME ["/usr/share/nginx/www", "/var/lib/mysql"]
+VOLUME ["/usr/share/nginx/www", "/var/lib/mysql", "/usr/local/etc/ssl"]
 
-# Expose 8080 to the host
+# Expose 8080 & 8443 to the host
 EXPOSE 8080
+EXPOSE 8443
 
 # Disable SSH
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh

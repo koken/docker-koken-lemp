@@ -42,6 +42,11 @@ if [ ! -f /usr/share/nginx/www/storage/configuration/database.php ] && [ ! -f /u
   mv /installer.php /usr/share/nginx/www/installer.php
   mv /user_setup.php /usr/share/nginx/www/user_setup.php
 
+  if [ ! -f /usr/local/etc/ssl/koken.key ] && [ ! -f /usr/local/etc/ssl/koken.crt ]; then
+    mv /koken.key /usr/local/etc/ssl/koken.key
+    mv /koken.crt /usr/local/etc/ssl/koken.crt
+  fi
+
   # Configure Koken database connection
   sed -e "s/___PWD___/$KOKEN_PASSWORD/" /database.php > /usr/share/nginx/www/database.php
   chown www-data:www-data /usr/share/nginx/www/
