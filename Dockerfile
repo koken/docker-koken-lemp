@@ -27,6 +27,7 @@ RUN \
 	sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.1/fpm/php.ini && \
 	sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 1G/g" /etc/php/7.1/fpm/php.ini && \
 	sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 1001M/g" /etc/php/7.1/fpm/php.ini && \
+	sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 300/g" /etc/php/7.1/fpm/php.ini && \
 	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf && \
 	sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php/7.1/fpm/pool.d/www.conf && \
 	echo "env[KOKEN_HOST] = 'koken-docker-lemp'" >> /etc/php/7.1/fpm/pool.d/www.conf && \
