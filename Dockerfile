@@ -8,8 +8,7 @@ CMD ["/sbin/my_init"]
 
 # Install required packages
 # LANG=C.UTF-8 line is needed for ondrej/php7 repository
-RUN \
-	export LANG=C.UTF-8 && \
+RUN export LANG=C.UTF-8 && \
 	export DEBIAN_FRONTEND=noninteractive && \
 	add-apt-repository ppa:mc3man/xerus-media && \
 	add-apt-repository ppa:ondrej/php && \
@@ -19,8 +18,7 @@ RUN \
 	apt-get -y install nginx mysql-server mysql-client php7.1-fpm php7.1-mysql php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick ffmpeg pwgen wget unzip
 
 # Configuration
-RUN \
-	echo "sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/mysql.conf.d/mysqld.cnf && \
+RUN echo "sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/mysql.conf.d/mysqld.cnf && \
 	sed -i -e"s/events\s{/events {\n\tuse epoll;/" /etc/nginx/nginx.conf && \
 	sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2;\n\tclient_max_body_size 100m;\n\tport_in_redirect off/" /etc/nginx/nginx.conf && \
 	echo "daemon off;" >> /etc/nginx/nginx.conf && \
